@@ -5,18 +5,18 @@
           <q-field
           icon="add_circle_outline"
           >
-            <q-input 
-            @keyup.enter="submit()" 
-            float-label="Add your list" 
-            :value="todo" 
+            <q-input
+            @keyup.enter="submit()"
+            float-label="Add your list"
+            :value="todo"
             @change="val => todo = val"
              />
           </q-field>
-          
-          <q-list 
-            class="q-mt-sm" 
+
+          <q-list
+            class="q-mt-sm"
             highlight
-            no-border	
+            no-border
           >
             <q-list-header>Recent todo lists</q-list-header>
             <template v-for="(value, index) in todoStorage">
@@ -41,9 +41,36 @@
               </q-item>
             </template>
           </q-list>
+          <q-btn @click="onShowTestModalClick">
+              Show test modal
+          </q-btn>
       </div>
     </div>
-    
+    <q-modal ref="testModal">
+        <q-modal-layout>
+            <q-toolbar slot="header">
+                <q-btn type="button"
+                    flat
+                    @click.prevent="onHideTestModalClick">
+                    <i class="q-icon material-icons">&#xE5C4;</i>
+                </q-btn>
+                <q-toolbar-title>
+                    TITLE HERE
+                </q-toolbar-title>
+            </q-toolbar>
+            SOME CONTENT
+            <q-toolbar slot="footer">
+                <q-toolbar-title>
+                    <q-btn class="full-width"
+                        type="button"
+                        color="secondary"
+                        @click.prevent="onHideTestModalClick">
+                        Hide test modal
+                    </q-btn>
+                </q-toolbar-title>
+            </q-toolbar>
+        </q-modal-layout>
+    </q-modal>
   </q-page>
 </template>
 
@@ -70,6 +97,12 @@ export default {
     },
     done: function(val, index) {
       return (this.$store.state.todos[index].done = !this.$store.state.todos[index].done);
+    },
+    onShowTestModalClick() {
+        this.$refs.testModal.show();
+    },
+    onHideTestModalClick() {
+        this.$refs.testModal.hide();
     }
   },
   computed: {
